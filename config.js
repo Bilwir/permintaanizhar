@@ -26,7 +26,7 @@ window.CONFIG = {
   theme: "ocean",
 
   // Tampilkan tombol gear ⚙️ untuk edit template langsung di browser?
-  showSettingsButton: true,
+  showSettingsButton: false,
 
   // Efek partikel melayang di background (hati, kelopak bunga, sparkle)
   enableParticles: true,
