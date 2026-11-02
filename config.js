@@ -39,7 +39,7 @@ window.CONFIG = {
     enabled: true,                     // Aktifkan audio
     autoplayOnFirstClick: true,        // Musik otomatis mulai saat layar pertama kali disentuh
     useCustomAudio: true,              // Gunakan file audio sendiri
-    customAudioUrl: "assets/audio/OldLove.mp3", // <-- Cukup arahkan ke file di GitHub tadi!
+    customAudioUrl: "assets/audio/OldLovee.mp3", // <-- Cukup arahkan ke file di GitHub tadi!
     volume: 1.0                        // Volume musik (0.0 sampai 1.0)
   },
 
