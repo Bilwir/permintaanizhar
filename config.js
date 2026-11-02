@@ -38,9 +38,9 @@ window.CONFIG = {
   music: {
     enabled: true,                     // Aktifkan audio
     autoplayOnFirstClick: true,        // Musik otomatis mulai saat layar pertama kali disentuh
-    useCustomAudio: false,             // Set true jika ingin menggunakan file MP3 sendiri
-    customAudioUrl: "",                // Contoh: "assets/audio/my-song.mp3" atau URL online
-    volume: 0.65                       // Volume musik (0.0 sampai 1.0)
+    useCustomAudio: true,             // Set true jika ingin menggunakan file MP3 sendiri
+    customAudioUrl: "https://jumpshare.com/s/SyXb473DHKBqHRsCYofB",                // Contoh: "assets/audio/my-song.mp3" atau URL online
+    volume: 1.0                      // Volume musik (0.0 sampai 1.0)
   },
 
   // === 4. RESPON WHATSAPP SETELAH DITERIMA ===
