@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="rose">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ada yang mau aku bilang ke kamu... 💌</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
+  
+  <!-- Google Fonts: Baloo 2 (Cutesy / Playful) + Plus Jakarta Sans (Modern & Clean) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Interactive Canvas & Glowing Orbs -->
+  <canvas id="bgCanvas"></canvas>
+  <div class="bg-orb bg-orb-1" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb-2" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb-3" aria-hidden="true"></div>
+
+  <!-- Music Pill Control Widget -->
+  <div class="music-widget" id="musicWidget" role="button" tabindex="0" title="Klik untuk putar / jeda musik romantis">
+    <div class="music-equalizer">
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+    </div>
+    <span class="music-icon">🎵</span>
+    <span id="musicLabel">Musik</span>
+  </div>
+
+  <!-- Live Customizer Toggle Button -->
+  <button class="settings-toggle-btn" id="settingsToggleBtn" title="Buka Kustomisasi / Ganti Nama & Kata-kata" aria-label="Pengaturan Template">
+    ⚙️ <span>Ubah Teks & Desain</span>
+  </button>
+
+  <!-- Celebration Sound Effect -->
+  <audio id="yaySfx" src="assets/audio/yay.mp3" preload="auto"></audio>
+
+  <!-- Main Stage / Interactive Card Container -->
+  <main class="stage">
+    <div class="card">
+      <!-- Step Stepper -->
+      <div class="step-stepper" aria-label="Progres">
+        <div class="step-dots">
+          <div class="step-dot active"></div>
+          <div class="step-dot"></div>
+          <div class="step-dot"></div>
+        </div>
+        <span id="stepLabel">Langkah 1/3: Halo</span>
+      </div>
+
+      <!-- SCREEN 1: INTRO SCREEN -->
+      <section class="screen" id="introScreen">
+        <div class="photo-container">
+          <img class="screen-photo wiggle" id="introPhoto" src="assets/images/intro.jpg" alt="Stiker Lucu Menyapa">
+        </div>
+        <div class="eyebrow-name" id="introEyebrow">Untuk Calvina 🌸</div>
+        <h1 id="introTitle">Boleh nggak aku curi satu menit waktu kamu?</h1>
+        <p class="subtitle" id="introSubtitle">Ada pesan kecil yang mau aku sampaikan dari hati yang paling dalam ✨</p>
+        <div class="btn-row">
+          <button class="btn-primary" id="introBtn" onclick="goToScreen('preludeScreen')">Boleh bangett 🥰</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 2: PRELUDE SCREEN -->
+      <section class="screen hide" id="preludeScreen">
+        <div class="photo-container">
+          <img class="screen-photo wiggle" id="preludePhoto" src="assets/images/prelude.jpg" alt="Stiker Lucu Malu-malu">
+        </div>
+        <h1 id="preludeTitle">Udah lama sebenarnya aku pengen bilang ini...</h1>
+        <p class="subtitle" id="preludeSubtitle">Tiap hari kepikiran terus, akhirnya hari ini beraniin diri buat ngetik ini semua 🫣</p>
+        <div class="btn-row">
+          <button class="btn-primary" id="preludeBtn" onclick="goToScreen('confessScreen')">Mau bilang apa sih? 🥺</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 3: CONFESSION LETTER & RUNAWAY BUTTON -->
+      <section class="screen hide" id="confessScreen">
+        <div class="photo-container">
+          <img class="screen-photo wiggle" id="confessPhoto" src="assets/images/confess.jpg" alt="Stiker Lucu Penuh Harap">
+        </div>
+        
+        <div class="letter-box">
+          <div class="letter-scroll-area" id="mainLetterBox">
+            <p class="letter-salutation" id="letterSalutation">Dear Calvina,</p>
+            <div id="letterParagraphs">
+              <!-- Paragraphs rendered dynamically from config.js -->
+            </div>
+            <p class="letter-signature" id="letterSignature">✨ made with all my love by Alpin</p>
+          </div>
+        </div>
+
+        <p class="scroll-hint" id="scrollHint">📜 geser ke bawah buat baca semuanya 📜</p>
+
+        <div class="btn-row" style="position: relative; min-height: 54px;">
+          <button class="btn-primary" id="yesBtn" onclick="acceptConfession()">Iya, aku mau 🥰💍</button>
+          <button id="noBtn">Nggak dulu deh 😜</button>
+        </div>
+        <p class="hint" id="dodgeHint">psst, tombol kanan agak susah dipencet lho 🤭</p>
+      </section>
+
+      <!-- SCREEN 4: CELEBRATION / RESULT SCREEN -->
+      <section class="screen hide" id="resultScreen">
+        <div class="celebration-badge" id="resultBadge">🎉 OFFICIAL RELATIONSHIP UNLOCKED 🎉</div>
+        <div class="photo-container">
+          <img class="screen-photo wiggle" id="resultPhoto" src="assets/images/result.jpg" alt="Perayaan Lucu">
+        </div>
+        <h1 id="resultTitle">WHATTT??? BENERAN?! 😭😭❤️</h1>
+        <p class="subtitle" id="resultMessage" style="font-weight: 600; margin-bottom: 8px;">Jadi kita beneran officially jadian sekarang nih?!</p>
+        <p class="subtitle" id="resultSubmessage" style="color: var(--primary-deep); font-weight: 700;">BURUAN CHAT AKU DAN BILANG KALAU KAMU NERIMA SEKARANG JUGA! 💌</p>
+
+        <div class="anniversary-card">
+          <span>📅</span>
+          <span id="anniversaryDate">Resmi Jadian Hari Ini 💖</span>
+        </div>
+
+        <div class="btn-row" style="flex-direction: column;">
+          <a class="btn-primary btn-whatsapp" id="whatsappBtn" target="_blank" rel="noopener noreferrer">Kirim Jawaban ke WhatsApp Alpin 💬</a>
+          <button class="btn-secondary" id="copyResponseBtn">📋 Salin Teks Jawaban Romantis</button>
+        </div>
+      </section>
+
+      <!-- Signature Footer -->
+      <p class="signature" id="footerSignature">* made with all my love by Alpin</p>
+    </div>
+  </main>
+
+  <!-- LIVE CUSTOMIZER MODAL -->
+  <div class="modal-overlay" id="settingsModalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="settings-modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">🎨 Kustomisasi Website</h2>
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Tutup Modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Names -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cfgRecipientName">Nama Gebetan / Pasangan</label>
+            <input type="text" id="cfgRecipientName" placeholder="Contoh: Calvina">
+          </div>
+          <div class="form-group">
+            <label for="cfgSenderName">Nama Kamu</label>
+            <input type="text" id="cfgSenderName" placeholder="Contoh: Alpin">
+          </div>
+        </div>
+
+        <!-- Color Themes -->
+        <div class="form-group">
+          <label>Pilihan Tema Warna</label>
+          <input type="hidden" id="cfgTheme" value="rose">
+          <div class="theme-options">
+            <button type="button" class="theme-btn active" data-theme="rose" style="background:#FFF0F5;">
+              <span class="theme-color-swatch" style="background: linear-gradient(135deg, #FF758C, #FF7EB3);"></span>
+              <span>Rose</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="sunset" style="background:#FFF6F0;">
+              <span class="theme-color-swatch" style="background: linear-gradient(135deg, #FF6B6B, #FFA07A);"></span>
+              <span>Sunset</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="lavender" style="background:#F8F0FF;">
+              <span class="theme-color-swatch" style="background: linear-gradient(135deg, #A855F7, #D946EF);"></span>
+              <span>Lavender</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="midnight" style="background:#F0F4FF;">
+              <span class="theme-color-swatch" style="background: linear-gradient(135deg, #6366F1, #8B5CF6);"></span>
+              <span>Midnight</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="mint" style="background:#F0FDF4;">
+              <span class="theme-color-swatch" style="background: linear-gradient(135deg, #10B981, #06B6D4);"></span>
+              <span>Mint</span>
+            </button>
+            <button type="button" class="theme-btn" data-theme="ocean" style="background:#E0F7FA;">
+              <span class="theme-color-swatch" style="background: linear-gradient(135deg, #00E5FF, #0077B6);"></span>
+              <span>Ocean</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- WhatsApp Integration -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cfgWaPhone">Nomor WhatsApp Kamu</label>
+            <input type="text" id="cfgWaPhone" placeholder="Contoh: 6281234567890">
+          </div>
+          <div class="form-group">
+            <label for="cfgWaMsg">Pesan Otomatis WhatsApp</label>
+            <input type="text" id="cfgWaMsg" placeholder="Pesan saat tombol ditekan">
+          </div>
+        </div>
+
+        <!-- Screen Titles -->
+        <div class="form-group">
+          <label for="cfgIntroTitle">Judul Halaman 1 (Intro)</label>
+          <input type="text" id="cfgIntroTitle">
+        </div>
+
+        <div class="form-group">
+          <label for="cfgPreludeTitle">Judul Halaman 2 (Pengantar)</label>
+          <input type="text" id="cfgPreludeTitle">
+        </div>
+
+        <!-- Letter Content -->
+        <div class="form-group">
+          <label for="cfgLetter">Isi Surat Pengakuan (Pisahkan paragraf dengan baris kosong ganda)</label>
+          <textarea id="cfgLetter" rows="6" placeholder="Tuliskan isi hatimu di sini..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="copyConfigBtn" title="Salin kode javascript ke clipboard">📋 Salin Config</button>
+        <button type="button" class="btn-secondary" id="downloadHtmlBtn" title="Unduh file HTML mandiri">💾 Unduh HTML</button>
+        <button type="button" class="btn-primary" id="applySettingsBtn" style="padding: 10px 18px; font-size: 14px;">Terapkan Langsung ✨</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Feedback Notification -->
+  <div id="toastNotification" aria-live="polite"></div>
+
+  <!-- Script Inclusions: Config must load before Core Script -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
