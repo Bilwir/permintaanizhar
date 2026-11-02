@@ -47,7 +47,7 @@ window.CONFIG = {
   whatsapp: {
     enabled: true,
     // Masukkan nomor WA dengan format internasional tanpa tanda '+' (Contoh: 6281234567890)
-    phoneNumber: "6281234567890",
+    phoneNumber: "6281944312258",
     // Pesan otomatis yang akan terisi di WhatsApp saat dia klik tombol chat
     message: "Hai Kakajar! 🥺💖 Aku udah buka websitemu... dan jawabannya: IYA, aku mau jadi pacar kamu! 🥰"
   },
